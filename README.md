@@ -22,6 +22,7 @@ This includes - but is not limited to - the following:
 * Use of Application and User settings
 * Resourcxe files to allow localis[z]ation
 * 10-15 lines per function
+* ALL THE THINGS should only be done once
 * ...
 
 This means that the code will be constantly evolving, even though the opbject of the app may be achieved. 
