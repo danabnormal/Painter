@@ -219,4 +219,7 @@
   <data name="TABSAMPLING_START" xml:space="preserve">
     <value>Capture</value>
   </data>
+  <data name="TESTSTRING" xml:space="preserve">
+    <value>You should never see this...</value>
+  </data>
 </root>

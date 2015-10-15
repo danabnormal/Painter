@@ -365,5 +365,14 @@ namespace Painter.Properties {
                 return ResourceManager.GetString("TABSAMPLING_START", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You should never see this....
+        /// </summary>
+        public static string TESTSTRING {
+            get {
+                return ResourceManager.GetString("TESTSTRING", resourceCulture);
+            }
+        }
     }
 }
