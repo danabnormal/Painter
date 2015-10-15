@@ -1,0 +1,121 @@
+﻿<Window x:Class="Painter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="830" Width="635">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch">
+            <TabItem Header="Live Preview">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <CheckBox x:Name="chkPreviewShowLive" Grid.Row="0" Grid.ColumnSpan="2" Content="Show live preview when sampling" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
+                    <CheckBox x:Name="chkPreviewDisableDrawing" Grid.Row="1" Grid.ColumnSpan="2" Content="Disable all form drawing - send to log only" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
+                    <CheckBox x:Name="chkPreviewTestcard" Grid.Row="2" Grid.ColumnSpan="2" Content="Show Testcard" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
+                    <Button x:Name="butPreviewGrabScreen" Grid.Row="3" Grid.Column="0" Content="Grab Screen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0"/>
+                    <Button x:Name="butPreviewGetColour" Grid.Row="3" Grid.Column="1" Content="Get Colour" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sampling">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="50*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Sample Width (%)" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,10,0,0"/>
+                        <Label Content="{Binding Value, ElementName=slidSamplingSampleWidth}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10"/>
+                        <Slider x:Name="slidSamplingSampleWidth"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Value="10" Maximum="100" Width="270"/>
+
+                    </Grid>
+
+
+                    <Label Content="Sample Accuracy" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+                    <Label Content="{Binding Value, ElementName=slidSamplingSampleAccuracy}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,36,0" Grid.Row="1" Grid.RowSpan="2"/>
+                    <Slider x:Name="slidSamplingSampleAccuracy" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="230" Value="10" Maximum="100" Grid.Row="2"/>
+
+
+                    <Label Content="Interval (ms)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,28,0,0" Grid.Row="2" Grid.RowSpan="2"/>
+                    <Label Content="{Binding Value, ElementName=slidSamplingSampleInterval}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,28,36,0" Grid.Row="2" Grid.RowSpan="2"/>
+                    <Slider x:Name="slidSamplingSampleInterval" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="230" Value="10" Maximum="100" Grid.Row="3" Grid.RowSpan="2"/>
+
+                    <Label Content="Sampling Preset" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,10,0,0" Grid.Column="1"/>
+                    <ComboBox x:Name="drpSamplingPreset" HorizontalAlignment="Left" VerticalAlignment="Top" Width="243" Margin="27,36,0,0" Grid.RowSpan="2" Grid.Column="1">
+                        <ComboBoxItem Content="Quick (Rough)"/>
+                        <ComboBoxItem Content="Slow (Accurate)"/>
+                    </ComboBox>
+
+                    <Label Content="I/O Config" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,6,0,0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
+                    <ComboBox x:Name="drpSamplingConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="243" Margin="27,1,0,0" Grid.Row="2" Grid.Column="1">
+                        <ComboBoxItem Content="Quick (Rough)"/>
+                        <ComboBoxItem Content="Slow (Accurate)"/>
+                    </ComboBox>
+                    <CheckBox x:Name="chkSamplingConserveMemory" Content="Conserve Memory" Margin="27,33,27,205" Grid.Row="2" Grid.RowSpan="3" Grid.Column="1"/>
+                    <Button x:Name="butSamplingCapture" Content="Capture" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="212,154,0,0" Grid.Row="4" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Hue">
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Log">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="GroupBox" HorizontalAlignment="Left" Margin="256,130,0,0" VerticalAlignment="Top" Height="146" Width="217"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="124,89,0,0"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="image" Grid.ColumnSpan="2" Grid.RowSpan="2"  Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Top" OpacityMask="Black">
+
+            </Image>
+        </Grid>
+    </Grid>
+</Window>
