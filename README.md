@@ -20,7 +20,7 @@ This includes - but is not limited to - the following:
 * Code comments
 * cAsE cOnVeNtIoNs
 * Use of Application and User settings
-* Resourcxe files to allow localis[z]ation
+* Resource files to allow localis[z]ation
 * 10-15 lines per function
 * ALL THE THINGS should only be done once
 * ...
