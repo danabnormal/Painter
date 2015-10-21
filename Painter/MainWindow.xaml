@@ -25,7 +25,7 @@
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Image Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Image x:Name="imgPreview" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
             <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="150,50,150,50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="labPreviewBox0" Content="0" BorderBrush="#FF575757" BorderThickness="1"></Label>
 
@@ -64,7 +64,7 @@
                     <CheckBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" x:Name="chkPreviewDisableDrawing" Content="{x:Static p:Resources.TABPREVIEW_DISABLEDRAWING}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" IsChecked="True" Checked="chkPreviewDisableDrawing_Checked" Click="chkPreviewDisableDrawing_Click"/>
                     <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" x:Name="chkPreviewTestcard" Content="{x:Static p:Resources.TABPREVIEW_TESTCARD}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
 
-                    <Button Grid.Column="0" Grid.Row="3" x:Name="butPreviewGrabScreen" Content="{x:Static p:Resources.TABPREVIEW_GRABSCREEN}" VerticalAlignment="Top" Margin="10,20" HorizontalAlignment="Stretch" />
+                    <Button Grid.Column="0" Grid.Row="3" x:Name="butPreviewGrabScreen" Content="{x:Static p:Resources.TABPREVIEW_GRABSCREEN}" VerticalAlignment="Top" Margin="10,20" HorizontalAlignment="Stretch" Click="butPreviewGrabScreen_Click" />
                     <Button Grid.Column="1" Grid.Row="3" x:Name="butPreviewGetColour" Content="{x:Static p:Resources.TABPREVIEW_GETCOLOUR}" VerticalAlignment="Top" Margin="10,20" HorizontalAlignment="Stretch"/>
                 </Grid>
             </TabItem>

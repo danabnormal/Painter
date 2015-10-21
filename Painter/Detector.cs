@@ -1,13 +1,122 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace Painter
 {
+    /// <summary>
+    /// The Detector object provides functions for obtaining and analyzing imagery to be used for the purpose of controlling a hue system.
+    /// </summary>
     class Detector
     {
-        
+        /// <summary>
+        /// A Region defines a line with which to begin obtaining sample data for a given image.
+        /// </summary>
+        public class Region
+        {
+            int _start;
+            int _end;
+            int _id;
+            string _name;
+            Axis _axis;
+
+            /// <summary>
+            /// Dictates whether the coordinates given apply to the X or Y axis.
+            /// </summary>
+            public Axis Axis
+            {
+                get
+                {
+                    return _axis;
+                }
+                set
+                {
+                    _axis = value;
+                }
+            }
+
+            /// <summary>
+            /// An Integer value representation of a whole number percentage (10 = 10%, 100 = 100%) detailing at what point the analysis line begins.
+            /// </summary>
+            public int Start
+            {
+                get {
+                    return _start;
+                }
+
+                set
+                {
+                    _start = value;
+                }
+            }
+
+            /// <summary>
+            /// An Integer value representation of a whole number percentage (10 = 10%, 100 = 100%) detailing at what point the analysis line ends.
+            /// </summary>
+            public int End
+            {
+                get
+                {
+                    return _end;
+                }
+
+                set
+                {
+                    _end = value;
+                }
+            }
+
+            /// <summary>
+            /// An integer that represents the unioque ID of the Region.
+            /// </summary>
+            public int ID
+            {
+                get
+                {
+                    return _id;
+                }
+
+                set
+                {
+                    _id = value;
+                }
+            }
+
+            /// <summary>
+            /// A 'friendly', 'human' value describing the Region.
+            /// </summary>
+            public string Name
+            {
+                get
+                {
+                    return _name;
+                }
+
+                set
+                {
+                    _name = value;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Represents the axis a detection line should apply to
+        /// </summary>
+        public enum Axis
+        {
+            x=0,
+            y=1
+        }
+
+        /// <summary>
+        /// A collection of Region objects that define the areas that need to be analyzed.
+        /// </summary>
+        public List<Region> Regions { get; set; }
+
         /// <summary>
         /// Returns a color object that represents the average colour of an image based on the settings provided.
         /// </summary>

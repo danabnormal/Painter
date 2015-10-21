@@ -24,6 +24,8 @@ namespace Painter
                 }
             }
             control.Text += DateTime.Now + ":" + entry + System.Environment.NewLine;
+
+            //TODO: Scrub that lot and write to Debugh window instead
         }
     }
 }

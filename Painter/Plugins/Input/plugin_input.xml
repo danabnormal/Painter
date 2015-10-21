@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Plugin Name="Outer edge" Description="Two evenly spaced regions per edge of the screen.">
+  <Regions>
+    <Region ID="0" StartX="0" EndX="49" StartY="0" EndY="0"/>
+    <Region ID="1" Start="50" End="100" StartY="0" EndY="00" />
+    <Region ID="2" StartX="0" EndX="49" StartY="100" EndY="100"/>
+    <Region ID="3" Start="50" End="100" StartY="100" EndY="100" />
+    <Region ID="4" StartX="0" EndX="0" StartY="0" EndY="49"/>
+    <Region ID="5" Start="0" End="0" StartY="50" EndY="100" />
+    <Region ID="6" StartX="100" EndX="100" StartY="0" EndY="49"/>
+    <Region ID="7" Start="100" End="100" StartY="50" EndY="100" />
+  </Regions>
+  <Config>
+    <Command Key="Interval" Value ="100" />
+    <Command Key="Width" Value ="10" />
+    <Command Key="Speed" Value ="1" />
+    <Command Key="Transition" Value ="10" />  </Config>
+</Plugin>

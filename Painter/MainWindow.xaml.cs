@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Painter
 {
@@ -34,6 +37,40 @@ namespace Painter
             {
                 chkPreviewShowLive.IsEnabled = true;
             }
+        }
+
+        private void butPreviewGrabScreen_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO THIS BLOODY BIT. What is an ImageSource and how do I use it!
+
+            HueSystem _hue = new HueSystem();
+
+            _hue.HubIPAddress = "1.1.1.1";
+            _hue.HubUserName = "Me";
+
+            HueSystem.Light _light = new HueSystem.Light();
+            _light.Number = 10;
+            _light.Name = "TV";
+            _hue.Lights.Add(_light);
+            if (_hue.Lights[0].IsOn==true)
+            {
+                _hue.SendCommand(HueSystem.Commands.SendColor, _hue.Lights[0], 255);
+            }
+
+            Detector detector = new Detector();
+
+            BitmapImage bmp = new BitmapImage();
+            bmp.BeginInit();
+            //bmp. = detector.GetScreenShot();
+
+
+
+
+            ImageSourceConverter converter = new ImageSourceConverter();
+            
+            ImageSource imagesource = (ImageSource)(converter.ConvertTo(detector.GetScreenShot(), typeof(ImageSource)));
+            imgPreview.Source = imagesource;
+            
         }
     }
 }

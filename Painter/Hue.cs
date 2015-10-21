@@ -104,7 +104,7 @@ namespace Painter
             client.UploadStringAsync(uri, "PUT", jsonObj);
         }
 
-        private void SendCommand(string command)
+        private void huesend(string url, string command)
         {
 
         }
