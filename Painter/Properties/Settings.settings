@@ -8,5 +8,14 @@
     <Setting Name="LogForm" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MainWindow</Value>
     </Setting>
+    <Setting Name="HueIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HueUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HueAppName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

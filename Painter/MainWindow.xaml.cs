@@ -1,5 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -11,6 +12,8 @@ namespace Painter
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Detector _detector = new Detector();
+
         public MainWindow()
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
@@ -41,36 +44,28 @@ namespace Painter
 
         private void butPreviewGrabScreen_Click(object sender, RoutedEventArgs e)
         {
-            //TODO THIS BLOODY BIT. What is an ImageSource and how do I use it!
-
-            HueSystem _hue = new HueSystem();
-
-            _hue.HubIPAddress = "1.1.1.1";
-            _hue.HubUserName = "Me";
-
-            HueSystem.Light _light = new HueSystem.Light();
-            _light.Number = 10;
-            _light.Name = "TV";
-            _hue.Lights.Add(_light);
-            if (_hue.Lights[0].IsOn==true)
-            {
-                _hue.SendCommand(HueSystem.Commands.SendColor, _hue.Lights[0], 255);
-            }
-
-            Detector detector = new Detector();
-
             BitmapImage bmp = new BitmapImage();
-            bmp.BeginInit();
-            //bmp. = detector.GetScreenShot();
+            ShowImage(_detector.GetScreenShot());
+        }
 
+        private void ShowImage(Image image)
+        {
+            MemoryStream ms = new MemoryStream();
+            image.Save(ms, ImageFormat.Bmp);
+            byte[] buffer = ms.GetBuffer();
+            MemoryStream bufferParser = new MemoryStream(buffer);
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.StreamSource = bufferParser;
+            bitmap.EndInit();
+            imgPreview.Source = bitmap;
+        }
 
-
-
-            ImageSourceConverter converter = new ImageSourceConverter();
-            
-            ImageSource imagesource = (ImageSource)(converter.ConvertTo(detector.GetScreenShot(), typeof(ImageSource)));
-            imgPreview.Source = imagesource;
-            
+        private void butPreviewGetColour_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Media.SolidColorBrush _bg = new System.Windows.Media.SolidColorBrush();
+            _bg.Color = _detector.GetAverageColour(1, 0, 0, 50, 0);
+            labPreviewBox1.Background = _bg;
         }
     }
 }

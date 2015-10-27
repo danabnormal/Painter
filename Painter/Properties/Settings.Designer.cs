@@ -40,5 +40,41 @@ namespace Painter.Properties {
                 return ((string)(this["LogForm"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HueIP {
+            get {
+                return ((string)(this["HueIP"]));
+            }
+            set {
+                this["HueIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HueUsername {
+            get {
+                return ((string)(this["HueUsername"]));
+            }
+            set {
+                this["HueUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HueAppName {
+            get {
+                return ((string)(this["HueAppName"]));
+            }
+            set {
+                this["HueAppName"] = value;
+            }
+        }
     }
 }

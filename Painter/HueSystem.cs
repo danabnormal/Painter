@@ -142,7 +142,7 @@ namespace Painter
                 _result = value;
             }
         }
-        
+
         /// <summary>
         /// A predefined set of commands that can be sent to the system.
         /// </summary>
