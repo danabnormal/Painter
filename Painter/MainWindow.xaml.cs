@@ -1,8 +1,10 @@
-﻿using System.Drawing;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Painter
@@ -66,6 +68,47 @@ namespace Painter
             System.Windows.Media.SolidColorBrush _bg = new System.Windows.Media.SolidColorBrush();
             _bg.Color = _detector.GetAverageColour(1, 0, 0, 50, 0);
             labPreviewBox1.Background = _bg;
+
+            _bg.Color = _detector.GetAverageColour(1, 51, 0, 100, 0);
+            labPreviewBox2.Background = _bg;
+        }
+
+        private void butSaveConfig_Click(object sender, RoutedEventArgs e)
+        {
+            IOConfig.InputConfig cfg = new IOConfig.InputConfig();
+
+            DetectionSettings settings = new DetectionSettings();
+            if (chkSamplingConserveMemory.IsChecked == false) { settings.ConserveMemory = false; } else { settings.ConserveMemory = true; };
+            if (chkPreviewShowLive.IsChecked == false) { settings.ShowPreview = false; } else { settings.ShowPreview = true; };
+            if (chkPreviewDisableDrawing.IsChecked == false) { settings.DisableFormDrawing = false; settings.ShowPreview = false; } else { settings.DisableFormDrawing = true; settings.ShowPreview = true; };
+
+            settings.SampleWidth = (int)Math.Ceiling(slidSamplingSampleWidth.Value);
+            settings.SampleAccuracy = (int)Math.Ceiling(slidSamplingSampleAccuracy.Value);
+            settings.SampleInterval = (int)Math.Ceiling(slidSamplingSampleInterval.Value);
+
+            cfg.Settings = settings;
+
+            List <Input> _regions = new List<Input>();
+            Input region = new Input();
+            region.StartX = 0;
+            region.EndX = 50;
+            region.StartY = 0;
+            region.EndY = 0;
+            region.Description = "Top Left";
+            region.ID = 0;
+            _regions.Add(region);
+
+            cfg.Inputs = _regions; 
+            cfg.Name = "Quick and not accurate";
+
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Hue File|*.hue";
+            if (dlg.ShowDialog() == true)
+            {
+                Tools tools = new Tools();
+                tools.ExportConfig(cfg, dlg.FileName);
+            }
+
         }
     }
 }

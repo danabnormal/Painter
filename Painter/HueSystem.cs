@@ -7,10 +7,10 @@ namespace Painter
 {
     class HueSystem
     {
-        string _hubip;
-        string _hubusername;
-        List<Light> _lights = new List<Light>();
-        Exception _result;
+        private string _hubip;
+        private string _hubusername;
+        private List<Light> _lights = new List<Light>();
+        private Exception _result;
 
         /// <summary>
         /// The Light object represents an individual light in the system and can be used to perform basic functions, such as on/off.

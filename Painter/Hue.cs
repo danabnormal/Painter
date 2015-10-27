@@ -19,7 +19,7 @@ namespace Painter
         public bool hueconfigure(string bridgeip, string uname)
         {
             var client = new WebClient();
-            Logging Log = new Logging();
+            Tools.Log log = new Tools.Log();
             //our uri to perform registration
             var uri = new Uri(string.Format("http://{0}/api", bridgeip));
 
@@ -38,11 +38,11 @@ namespace Painter
             {
                 try
                 {
-                    Log.Write(Properties.Resources.LOG_HUE_BRIDGE_RESPONSE + " " + args.Result);
+                    log.Write(Properties.Resources.LOG_HUE_BRIDGE_RESPONSE + " " + args.Result);
                 }
                 catch (Exception ex)
                 {
-                    Log.Write(Properties.Resources.LOG_HUE_BRIDGE_EXCEPTION + " " + ex.Message);
+                    log.Write(Properties.Resources.LOG_HUE_BRIDGE_EXCEPTION + " " + ex.Message);
                 }
             };
 
@@ -68,7 +68,7 @@ namespace Painter
             //var hsv = LightColorSlider.Color.GetHSV();
 
             //build our State object
-            Logging Log = new Logging();
+            Tools.Log Log = new Tools.Log();
 
             var state = new
             {

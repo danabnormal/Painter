@@ -19,12 +19,12 @@ namespace Painter
         /// </summary>
         public class Region
         {
-            int _startx;
-            int _endx;
-            int _starty;
-            int _endy;
-            int _id;
-            string _name;
+            private int _startx;
+            private int _endx;
+            private int _starty;
+            private int _endy;
+            private int _id;
+            private string _name;
             
             /// <summary>
             /// An Integer value representation of a whole number percentage (10 = 10%, 100 = 100%) detailing at what point the analysis line begins.
@@ -142,19 +142,27 @@ namespace Painter
         {
             using (var bmp = new Bitmap(_image))
             {
+                
+
+
+
                 int width = _image.Width;
                 int height = _image.Height;
+
+                int xpc = width / 100;
+                int ypc = height / 100;
+
                 int red = 0;
                 int green = 0;
                 int blue = 0;
                 int alpha = 0;
                 int xcounter = 0;
                 var ycounter = 0;
-                for (int x = startx; x < endx; x = x + accuracy)
+                for (int x = (startx * xpc); x < (endx * xpc); x = x + accuracy)
                 {
                     ycounter=0;
                     xcounter++;
-                    for (int y = starty; y < 1; y = y + accuracy)
+                    for (int y = (starty * ypc); y < ((endy * ypc)+1); y = y + accuracy)
                     {
                         ycounter++;
                         var pixel = bmp.GetPixel(x, y);
