@@ -41,7 +41,7 @@ namespace Painter
                 int xcounter = 0;
                 var ycounter = 0;
 
-                for (int x = (startx * xpc); x < (endx * xpc); x = x + accuracy)
+                for (int x = (startx * xpc); x < (endx * xpc)+1; x = x + accuracy)
                 {
                     ycounter=0;
                     xcounter++;

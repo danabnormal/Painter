@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Painter
@@ -19,7 +20,7 @@ namespace Painter
 
         public MainWindow()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             InitializeComponent();
         }
         
@@ -44,7 +45,7 @@ namespace Painter
         /// Sets a given Image object as the source for an Image control within the UI.
         /// </summary>
         /// <param name="image">File to render.</param>
-        private void ShowImage(Image image)
+        private void ShowImage(System.Drawing.Image image)
         {
             MemoryStream ms = new MemoryStream();
             image.Save(ms, ImageFormat.Bmp);
@@ -67,16 +68,13 @@ namespace Painter
         /// </summary>
         private void ReadColour()
         {
-            System.Windows.Media.SolidColorBrush _bg = new System.Windows.Media.SolidColorBrush();
-            System.Windows.Media.SolidColorBrush _bg2 = new System.Windows.Media.SolidColorBrush();
-
-            Input _input = _currentioconfig.Inputs.Find(x => x.ID == 0);
-            _bg.Color = _detector.GetAverageColour(_currentioconfig.Settings.SampleAccuracy, _input.StartX, _input.StartY, _input.EndX, _input.EndY);
-            labPreviewBox1.Background = _bg;
-
-            Input _input1 = _currentioconfig.Inputs.Find(x => x.ID == 1);
-            _bg2.Color = _detector.GetAverageColour(_currentioconfig.Settings.SampleAccuracy, _input1.StartX, _input1.StartY, _input1.EndX, _input1.EndY);
-            labPreviewBox2.Background = _bg2;
+            foreach (Input _input in _currentioconfig.Inputs)
+            {
+                System.Windows.Media.SolidColorBrush _bg = new System.Windows.Media.SolidColorBrush();
+                Label _label = (Label)this.FindName("labPreviewBox" + _input.ID);
+                _bg.Color = _detector.GetAverageColour(_currentioconfig.Settings.SampleAccuracy, _input.StartX, _input.StartY, _input.EndX, _input.EndY);
+                _label.Background = _bg;
+            }
         }
 
         private void butSaveConfig_Click(object sender, RoutedEventArgs e)
@@ -91,7 +89,12 @@ namespace Painter
         {
             
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "Hue File|*.hue";
+            
+            // TODO: Extension descriptor to be read from Resource file. 
+            // dlg.Filter = Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
+
+            dlg.Filter = "Hue config file|*.hue";
+
             if (dlg.ShowDialog() == true)
             {
                 Tools tools = new Tools();
@@ -181,8 +184,15 @@ namespace Painter
         private List<Input> SampleRegionList()
         {
             List<Input> _regions = new List<Input>();
-            _regions.Add(SampleInput(0,0,50,0,0));
-            _regions.Add(SampleInput(1, 51, 100, 0, 0));
+            _regions.Add(SampleInput(   0,  25,  75,  50,  50));
+            _regions.Add(SampleInput(   1,   0,  50,   0,   0));
+            _regions.Add(SampleInput(   2,  51, 100,   0,   0));
+            _regions.Add(SampleInput(   3,   0,  50, 100, 100));
+            _regions.Add(SampleInput(   4,  51, 100, 100, 100));
+            _regions.Add(SampleInput(   5,   0,   0,   0,  50));
+            _regions.Add(SampleInput(   6,   0,   0,  51, 100));
+            _regions.Add(SampleInput(   7, 100, 100,   0,  50));
+            _regions.Add(SampleInput(   8, 100, 100,  51, 100));
             return _regions;
         }
 

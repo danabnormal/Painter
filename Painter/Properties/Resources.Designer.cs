@@ -88,6 +88,15 @@ namespace Painter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hue File.
+        /// </summary>
+        public static string MAIN_FILETYPE_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("MAIN_FILETYPE_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hue.
         /// </summary>
         public static string MAIN_TABS_HUE {

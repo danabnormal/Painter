@@ -126,6 +126,9 @@
   <data name="LOG_HUE_BRIDGE_RESPONSE" xml:space="preserve">
     <value>Bridge says:</value>
   </data>
+  <data name="MAIN_FILETYPE_DESCRIPTION" xml:space="preserve">
+    <value>Hue File</value>
+  </data>
   <data name="MAIN_TABS_HUE" xml:space="preserve">
     <value>Hue</value>
   </data>
