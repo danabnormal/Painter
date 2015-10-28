@@ -65,18 +65,62 @@ namespace Painter
 
         private void butPreviewGetColour_Click(object sender, RoutedEventArgs e)
         {
+            ReadColour();
+        }
+
+        /// <summary>
+        /// Initiates functionality for reading a color value and outputting that cvalue to form controls.
+        /// </summary>
+        private void ReadColour()
+        {
             System.Windows.Media.SolidColorBrush _bg = new System.Windows.Media.SolidColorBrush();
+            System.Windows.Media.SolidColorBrush _bg2 = new System.Windows.Media.SolidColorBrush();
             _bg.Color = _detector.GetAverageColour(1, 0, 0, 50, 0);
             labPreviewBox1.Background = _bg;
 
-            _bg.Color = _detector.GetAverageColour(1, 51, 0, 100, 0);
-            labPreviewBox2.Background = _bg;
+            _bg2.Color = _detector.GetAverageColour(1, 51, 0, 100, 0);
+            labPreviewBox2.Background = _bg2;
         }
 
         private void butSaveConfig_Click(object sender, RoutedEventArgs e)
         {
-            IOConfig.InputConfig cfg = new IOConfig.InputConfig();
+            SaveConfig();
+        }
 
+        /// <summary>
+        /// Exports a populated InputConfig object to file.
+        /// </summary>
+        private void SaveConfig()
+        {
+            
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Hue File|*.hue";
+            if (dlg.ShowDialog() == true)
+            {
+                Tools tools = new Tools();
+                tools.ExportConfig(CreateConfigObject(), dlg.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Creates a new InputConfig object and populates it for use
+        /// </summary>
+        /// <returns>A populated InputConfig object that reflects the settings configured in the UI by the user.</returns>
+        private IOConfig.InputConfig CreateConfigObject()
+        {
+            IOConfig.InputConfig cfg = new IOConfig.InputConfig();
+            cfg.Settings = ReadControlsToSettings();
+            cfg.Inputs = SampleRegionList();
+            cfg.Name = "Quick and not accurate";
+            return cfg;
+        }
+
+        /// <summary>
+        /// Creates a Settings object that mimics the configuration set by the user through the UI.
+        /// </summary>
+        /// <returns></returns>
+        private DetectionSettings ReadControlsToSettings()
+        {
             DetectionSettings settings = new DetectionSettings();
             if (chkSamplingConserveMemory.IsChecked == false) { settings.ConserveMemory = false; } else { settings.ConserveMemory = true; };
             if (chkPreviewShowLive.IsChecked == false) { settings.ShowPreview = false; } else { settings.ShowPreview = true; };
@@ -86,29 +130,72 @@ namespace Painter
             settings.SampleAccuracy = (int)Math.Ceiling(slidSamplingSampleAccuracy.Value);
             settings.SampleInterval = (int)Math.Ceiling(slidSamplingSampleInterval.Value);
 
-            cfg.Settings = settings;
+            return settings;
 
-            List <Input> _regions = new List<Input>();
+        }
+
+        private void ReadSettingsToControls(DetectionSettings settings)
+        {
+            chkSamplingConserveMemory.IsChecked = settings.ConserveMemory;
+            chkPreviewShowLive.IsChecked = settings.ShowPreview;
+
+            if (settings.DisableFormDrawing == false)
+           {
+                chkPreviewDisableDrawing.IsChecked = false;
+                chkPreviewShowLive.IsEnabled = true;
+                
+            } else
+            {
+                chkPreviewDisableDrawing.IsChecked = true;
+                chkPreviewShowLive.IsEnabled = false;
+                chkPreviewShowLive.IsChecked = false;
+            };
+
+            slidSamplingSampleWidth.Value = settings.SampleWidth;
+            slidSamplingSampleAccuracy.Value= settings.SampleAccuracy;
+            slidSamplingSampleInterval.Value = settings.SampleInterval;
+
+        }
+
+        /// <summary>
+        /// A generated list of Regions for use during detection.
+        /// </summary>
+        /// <returns></returns>
+        private List<Input> SampleRegionList()
+        {
+            List<Input> _regions = new List<Input>();
+            _regions.Add(SampleInput(0,0,50,0,0));
+            _regions.Add(SampleInput(1, 51, 100, 0, 0));
+            return _regions;
+        }
+
+        /// <summary>
+        /// Creates a sample Input region from hard coded values. Should only be used for testing. 
+        /// </summary>
+        /// <returns></returns>
+        private Input SampleInput(int ID, int startX, int endX, int startY, int endY)
+        {
             Input region = new Input();
-            region.StartX = 0;
-            region.EndX = 50;
-            region.StartY = 0;
-            region.EndY = 0;
-            region.Description = "Top Left";
-            region.ID = 0;
-            _regions.Add(region);
+            region.StartX = startX;
+            region.EndX = endX;
+            region.StartY = startY;
+            region.EndY = endY;
+            region.Description = "Sample input";
+            region.ID = ID;
+            return region;
+        }
 
-            cfg.Inputs = _regions; 
-            cfg.Name = "Quick and not accurate";
-
-            SaveFileDialog dlg = new SaveFileDialog();
+        private void butLoadConfig_Click(object sender, RoutedEventArgs e)
+        {
+            IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
+            OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Hue File|*.hue";
             if (dlg.ShowDialog() == true)
             {
                 Tools tools = new Tools();
-                tools.ExportConfig(cfg, dlg.FileName);
+                _cfg = tools.ImportConfig<IOConfig.InputConfig> (dlg.FileName);
+                ReadSettingsToControls(_cfg.Settings);
             }
-
         }
     }
 }

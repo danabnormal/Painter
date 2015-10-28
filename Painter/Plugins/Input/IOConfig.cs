@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Painter
 {
+
+    /// <summary>
+    /// IOConfig is a configuration object containing other objects that describe an entire application wide configuration of detction settings, input configurations and other pieces.
+    /// </summary>
     public class IOConfig
     {
 
@@ -41,6 +45,9 @@ namespace Painter
         public int TargetID { get; set; }
     }
 
+    /// <summary>
+    /// An object containing setting that configure Detection activities.
+    /// </summary>
     [Serializable]
     public class DetectionSettings
     {

@@ -78,6 +78,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -114,6 +116,7 @@
                     <CheckBox x:Name="chkSamplingConserveMemory" Content="{x:Static p:Resources.TABSAMPLING_CONSERVEMEMORY}" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2"  Margin="10,2" VerticalAlignment="Center"/>
                     <Button x:Name="butSamplingCapture" Content="{x:Static p:Resources.TABSAMPLING_START}" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2"/>
                     <Button x:Name="butSaveConfig" Content="Export Settings" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2" Click="butSaveConfig_Click"/>
+                    <Button x:Name="butLoadConfig" Content="Load Settings" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2" Click="butLoadConfig_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static p:Resources.MAIN_TABS_HUE}">
@@ -185,7 +188,7 @@
 
             <TabItem Header="{x:Static p:Resources.MAIN_TABS_LOG}">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="txtLog" x:FieldModifier="public" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Text="TextBox" HorizontalAlignment="Stretch" Margin="0,0"/>
+                    <TextBox x:Name="txtLog" x:FieldModifier="public" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Text="" HorizontalAlignment="Stretch" Margin="0,0"/>
                 </Grid>
             </TabItem>
         </TabControl>

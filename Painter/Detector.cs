@@ -7,11 +7,13 @@ using System.Windows.Media;
 
 namespace Painter
 {
+    
     /// <summary>
     /// The Detector object provides functions for obtaining and analyzing imagery to be used for the purpose of controlling a hue system.
     /// </summary>
     class Detector
     {
+        private Tools.Log _log = new Tools.Log();
         private Image _image;
 
         /// <summary>
@@ -143,9 +145,6 @@ namespace Painter
             using (var bmp = new Bitmap(_image))
             {
                 
-
-
-
                 int width = _image.Width;
                 int height = _image.Height;
 
@@ -164,6 +163,7 @@ namespace Painter
                     xcounter++;
                     for (int y = (starty * ypc); y < ((endy * ypc)+1); y = y + accuracy)
                     {
+                        _log.Write("x=" + x + ", y=" + y);
                         ycounter++;
                         var pixel = bmp.GetPixel(x, y);
                         red += pixel.R;
@@ -180,12 +180,13 @@ namespace Painter
                 alpha = avg(alpha);
                 
                 System.Windows.Media.Color color = new System.Windows.Media.Color();
-                color.A = Convert.ToByte(alpha);
+                color.A = Convert.ToByte(255);
                 color.R = Convert.ToByte(red);
                 color.G = Convert.ToByte(green);
                 color.B = Convert.ToByte(blue);
                 bmp.Dispose();
-                
+
+                _log.Write("Detector, color: " + color.ToString());
                 return color;
             }
         }
@@ -218,5 +219,6 @@ namespace Painter
                 _image = value;
             }
         }
+        
     }
 }
