@@ -15,6 +15,7 @@ namespace Painter
     public partial class MainWindow : Window
     {
         private Detector _detector = new Detector();
+        private IOConfig.InputConfig _currentioconfig = new IOConfig.InputConfig();
 
         public MainWindow()
         {
@@ -46,10 +47,13 @@ namespace Painter
 
         private void butPreviewGrabScreen_Click(object sender, RoutedEventArgs e)
         {
-            BitmapImage bmp = new BitmapImage();
             ShowImage(_detector.GetScreenShot());
         }
 
+        /// <summary>
+        /// Sets a given Image object as the source for an Image control within the UI.
+        /// </summary>
+        /// <param name="image">File to render.</param>
         private void ShowImage(Image image)
         {
             MemoryStream ms = new MemoryStream();
@@ -75,10 +79,13 @@ namespace Painter
         {
             System.Windows.Media.SolidColorBrush _bg = new System.Windows.Media.SolidColorBrush();
             System.Windows.Media.SolidColorBrush _bg2 = new System.Windows.Media.SolidColorBrush();
-            _bg.Color = _detector.GetAverageColour(1, 0, 0, 50, 0);
+
+            Input _input = _currentioconfig.Inputs.Find(x => x.ID == 0);
+            _bg.Color = _detector.GetAverageColour(_currentioconfig.Settings.SampleAccuracy, _input.StartX, _input.StartY, _input.EndX, _input.EndY);
             labPreviewBox1.Background = _bg;
 
-            _bg2.Color = _detector.GetAverageColour(1, 51, 0, 100, 0);
+            Input _input1 = _currentioconfig.Inputs.Find(x => x.ID == 1);
+            _bg2.Color = _detector.GetAverageColour(_currentioconfig.Settings.SampleAccuracy, _input1.StartX, _input1.StartY, _input1.EndX, _input1.EndY);
             labPreviewBox2.Background = _bg2;
         }
 
@@ -102,6 +109,22 @@ namespace Painter
             }
         }
 
+        /// <summary>
+        /// Opens a given file, creating an InputConfig object with it and rendering the UI to reflect its settings.
+        /// </summary>
+        private void LoadConfig()
+        {
+            IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Hue File|*.hue";
+            if (dlg.ShowDialog() == true)
+            {
+                Tools tools = new Tools();
+                _currentioconfig = tools.ImportConfig<IOConfig.InputConfig>(dlg.FileName);
+                ReadSettingsToControls(_currentioconfig.Settings);
+            }
+        }
+        
         /// <summary>
         /// Creates a new InputConfig object and populates it for use
         /// </summary>
@@ -134,6 +157,10 @@ namespace Painter
 
         }
 
+        /// <summary>
+        /// Writes out settings propvided ina given DetectionSettings object to the UI.
+        /// </summary>
+        /// <param name="settings"></param>
         private void ReadSettingsToControls(DetectionSettings settings)
         {
             chkSamplingConserveMemory.IsChecked = settings.ConserveMemory;
@@ -187,15 +214,7 @@ namespace Painter
 
         private void butLoadConfig_Click(object sender, RoutedEventArgs e)
         {
-            IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Hue File|*.hue";
-            if (dlg.ShowDialog() == true)
-            {
-                Tools tools = new Tools();
-                _cfg = tools.ImportConfig<IOConfig.InputConfig> (dlg.FileName);
-                ReadSettingsToControls(_cfg.Settings);
-            }
+            LoadConfig();
         }
     }
 }
