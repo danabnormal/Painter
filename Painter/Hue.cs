@@ -52,8 +52,7 @@ namespace Painter
 
             return true;
         }
-
-
+        
         /// <summary>
         /// Sends a state command to a hue bridge.
         /// </summary>
@@ -106,7 +105,7 @@ namespace Painter
 
         private void huesend(string url, string command)
         {
-
+            // TODO: Generic code for sending commands to the hue system
         }
     }
 }

@@ -61,7 +61,7 @@
                         <ColumnDefinition Width="20*"/>
                     </Grid.ColumnDefinitions>
                     <CheckBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" x:Name="chkPreviewShowLive" Content="{x:Static p:Resources.TABPREVIEW_SHOWLIVEPREVIEW}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" IsEnabled="False" />
-                    <CheckBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" x:Name="chkPreviewDisableDrawing" Content="{x:Static p:Resources.TABPREVIEW_DISABLEDRAWING}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" IsChecked="True" Checked="chkPreviewDisableDrawing_Checked" Click="chkPreviewDisableDrawing_Click"/>
+                    <CheckBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" x:Name="chkPreviewDisableDrawing" Content="{x:Static p:Resources.TABPREVIEW_DISABLEDRAWING}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" IsChecked="True" Click="chkPreviewDisableDrawing_Click"/>
                     <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" x:Name="chkPreviewTestcard" Content="{x:Static p:Resources.TABPREVIEW_TESTCARD}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
 
                     <Button Grid.Column="0" Grid.Row="3" x:Name="butPreviewGrabScreen" Content="{x:Static p:Resources.TABPREVIEW_GRABSCREEN}" VerticalAlignment="Top" Margin="10,20" HorizontalAlignment="Stretch" Click="butPreviewGrabScreen_Click" />
