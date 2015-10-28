@@ -76,7 +76,7 @@ namespace Painter
         /// Creates a default hue file that can either be used for demo purposes or to replace a missing Default.hue (one should always be present).
         /// </summary>
         /// <param name="FileName">The name and path of the file to write to. If ommitted this will default to %APPDATA%\Default.hue .</param>
-        public void CreateDefaultHueFile(string FileName = "c:\test.hue")
+        public void CreateDefaultHueFile(string FileName = "C:\\Users\\Daniel\\Desktop\\testDefault.hue")
         {
             Tools tools = new Tools();
             tools.ExportConfig(CreateDefaultObject(), FileName);

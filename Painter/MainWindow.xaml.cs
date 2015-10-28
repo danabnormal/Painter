@@ -216,5 +216,11 @@ namespace Painter
         {
             LoadConfig();
         }
+
+        private void butCreateDefultHue_Click(object sender, RoutedEventArgs e)
+        {
+            Tools tools = new Tools();
+            tools.CreateDefaultHueFile();
+        }
     }
 }
