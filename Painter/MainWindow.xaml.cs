@@ -17,7 +17,7 @@ namespace Painter
     {
         private Detector _detector = new Detector();
         private IOConfig.InputConfig _currentioconfig = new IOConfig.InputConfig();
-
+        
         public MainWindow()
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
@@ -115,11 +115,7 @@ namespace Painter
         {
             
             SaveFileDialog dlg = new SaveFileDialog();
-            
-            // TODO: Extension descriptor to be read from Resource file. 
-            // dlg.Filter = Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
-
-            dlg.Filter = "Hue config file|*.hue";
+            dlg.Filter = Properties.Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
 
             if (dlg.ShowDialog() == true)
             {
@@ -135,7 +131,7 @@ namespace Painter
         {
             IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Hue File|*.hue";
+            dlg.Filter = Properties.Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
             if (dlg.ShowDialog() == true)
             {
                 Tools tools = new Tools();
