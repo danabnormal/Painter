@@ -129,6 +129,9 @@
   <data name="MAIN_FILETYPE_DESCRIPTION" xml:space="preserve">
     <value>Hue File</value>
   </data>
+  <data name="MAIN_NO_ITEM_SELECTED" xml:space="preserve">
+    <value>No item selected.</value>
+  </data>
   <data name="MAIN_TABS_HUE" xml:space="preserve">
     <value>Hue</value>
   </data>

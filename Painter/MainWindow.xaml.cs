@@ -167,7 +167,7 @@ namespace Painter
         {
             if (lstConfigs.SelectedIndex == -1)
             {
-                MessageBox.Show("No config selected.");
+                MessageBox.Show(Properties.Resources.MAIN_NO_ITEM_SELECTED);
             }
             else
             {

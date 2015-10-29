@@ -97,6 +97,15 @@ namespace Painter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No item selected..
+        /// </summary>
+        public static string MAIN_NO_ITEM_SELECTED {
+            get {
+                return ResourceManager.GetString("MAIN_NO_ITEM_SELECTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hue.
         /// </summary>
         public static string MAIN_TABS_HUE {
