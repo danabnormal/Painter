@@ -70,7 +70,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Detector.cs" />
-    <Compile Include="Hue.cs" />
+    <Compile Include="DEPRECATEDHue.cs" />
     <Compile Include="HueSystem.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="MainWindow.xaml.cs">

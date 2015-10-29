@@ -15,12 +15,14 @@ namespace Painter
     /// </summary>
     public partial class MainWindow : Window
     {
+        // TODO: Should I be using Global objects like this??
         private Detector _detector = new Detector();
         private IOConfig.InputConfig _currentioconfig = new IOConfig.InputConfig();
         private List<IOConfig.InputConfig> _plugins = new List<IOConfig.InputConfig>();
 
         public MainWindow()
         {
+            // INFO: I have commented this out but left it as an example of forcing culture should that need testing.
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             InitializeComponent();
             LoadDefaultSettings();
@@ -28,10 +30,14 @@ namespace Painter
             PopulatePluginControl();
         }
         
+        /// <summary>
+        /// Loads all available plugins in to the global object for reference.
+        /// </summary>
         private void PopulatePluginList ()
         {
+            _plugins.Clear();
             string[] _pluginfiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins\\IO\\", "*.hue");
-
+            
             foreach (string _pluginfile in _pluginfiles)
             {
                 Tools tools = new Tools();
@@ -39,11 +45,11 @@ namespace Painter
             }
         }
 
+        /// <summary>
+        /// Writes entries for each available plugin in to the appropriate listboxes.
+        /// </summary>
         private void PopulatePluginControl()
         {
-
-            List<PluginData> _data = new List<PluginData>();
-            
             foreach (IOConfig.InputConfig _plugin in _plugins)
             {
                 ListBoxItem _lstConfig = new ListBoxItem();
@@ -52,12 +58,9 @@ namespace Painter
             }
         }
 
-        private class PluginData
-        {
-            public string PluginID { get; set; }
-            public string PluginName { get; set; }
-        }
-
+        /// <summary>
+        /// Loads up Default.hue as current configuration. Also recreates the file if it does not exist.
+        /// </summary>
         private void LoadDefaultSettings()
         {
             Tools tools = new Tools();
@@ -151,13 +154,14 @@ namespace Painter
 
             if (dlg.ShowDialog() == true)
             {
+                // TODO: No way to specify the Name property for an object that is about to be saved.
                 Tools tools = new Tools();
                 tools.ExportConfig(CreateConfigObject(), dlg.FileName);
             }
         }
 
         /// <summary>
-        /// Opens a given file, creating an InputConfig object with it and rendering the UI to reflect its settings.
+        /// Loads a selected config object in as the current active configuration.
         /// </summary>
         private void LoadConfig()
         {
@@ -171,16 +175,6 @@ namespace Painter
                 _currentioconfig = _plugins.Find(i => i.Name == _selected.Content.ToString());
                 ReadSettingsToControls(_currentioconfig.Settings);
             }
-            
-            //IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
-            //OpenFileDialog dlg = new OpenFileDialog();
-            //dlg.Filter = Properties.Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
-            //if (dlg.ShowDialog() == true)
-            //{
-            //    Tools tools = new Tools();
-            //    _currentioconfig = tools.ImportConfig<IOConfig.InputConfig>(dlg.FileName);
-            //    ReadSettingsToControls(_currentioconfig.Settings);
-            //}
         }
         
         /// <summary>

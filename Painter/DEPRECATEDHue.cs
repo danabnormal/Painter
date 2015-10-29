@@ -3,6 +3,9 @@ using System.Net;
 using System.Drawing;
 using Newtonsoft.Json;
 
+/// <summary>
+/// THIS SHOULD NOT BE USED AND WILL BE REMOVED
+/// </summary>
 namespace Painter
 {
     /// <summary>
