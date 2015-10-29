@@ -14,6 +14,7 @@ namespace Painter
     /// </summary>
     public class Tools
     {
+
         /// <summary>
         /// Allows logging of various types by the application.
         /// </summary>
@@ -76,11 +77,10 @@ namespace Painter
         /// Creates a default hue file that can either be used for demo purposes or to replace a missing Default.hue (one should always be present).
         /// </summary>
         /// <param name="FileName">The name and path of the file to write to. If ommitted this will default to %APPDATA%\Default.hue .</param>
-        public void CreateDefaultHueFile(string FileName = "C:\\Users\\Daniel\\Desktop\\testDefault.hue")
+        public void CreateDefaultHueFile()
         {
             Tools tools = new Tools();
-            tools.ExportConfig(CreateDefaultObject(), FileName);
-
+            tools.ExportConfig(CreateDefaultObject(), AppDomain.CurrentDomain.BaseDirectory + "Plugins\\IO\\Default.hue");
         }
 
         private IOConfig.InputConfig CreateDefaultObject()

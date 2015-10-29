@@ -22,6 +22,32 @@ namespace Painter
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             InitializeComponent();
+            
+            LoadDefaultSettings();
+        }
+        
+        private void LoadDefaultSettings()
+        {
+            Tools tools = new Tools();
+
+            try
+            {
+                _currentioconfig = tools.ImportConfig<IOConfig.InputConfig>(AppDomain.CurrentDomain.BaseDirectory + "Plugins\\IO\\Default.hue");
+                ReadSettingsToControls(_currentioconfig.Settings);
+            }
+            catch (Exception ex) when (ex is FileNotFoundException)
+            {
+                tools.CreateDefaultHueFile();
+                _currentioconfig = tools.ImportConfig<IOConfig.InputConfig>(AppDomain.CurrentDomain.BaseDirectory + "Plugins\\IO\\Default.hue");
+                ReadSettingsToControls(_currentioconfig.Settings);
+                return;
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
         
         private void chkPreviewDisableDrawing_Click(object sender, RoutedEventArgs e)
