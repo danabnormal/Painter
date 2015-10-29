@@ -102,23 +102,12 @@
                     <Label Content="{x:Static p:Resources.TABSAMPLING_INTERVAL}" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="4" VerticalAlignment="Bottom"/>
                     <Label Content="{Binding Value, ElementName=slidSamplingSampleInterval}" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom"/>
                     <Slider x:Name="slidSamplingSampleInterval" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,2" VerticalAlignment="Center" Value="10" Maximum="100" SmallChange="1" LargeChange="5"/>
-
-                    <Label Content="{x:Static p:Resources.TABSAMPLING_PRESET}" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2"  VerticalAlignment="Center"/>
-                    <ComboBox x:Name="drpSamplingPreset" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Center" Margin="10,2">
-                        <ComboBoxItem Content="{x:Static p:Resources.TABSAMPLING_PRESET_FAST}"/>
-                        <ComboBoxItem Content="{x:Static p:Resources.TABSAMPLING_PRESET_SLOW}"/>
-                    </ComboBox>
-
-                    <Label Content="{x:Static p:Resources.TABSAMPLING_IO}" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"  VerticalAlignment="Center"/>
-                    <ComboBox x:Name="drpSamplingConfig" IsEnabled="False"  HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2"  VerticalAlignment="Center" Margin="10,2">
-                        <ComboBoxItem Content="{x:Static p:Resources.TABSAMPLING_IO_8_TO_1}"/>
-                        <ComboBoxItem Content="{x:Static p:Resources.TABSAMPLING_IO_1_TO_1}"/>
-                    </ComboBox>
                     <CheckBox x:Name="chkSamplingConserveMemory" Content="{x:Static p:Resources.TABSAMPLING_CONSERVEMEMORY}" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2"  Margin="10,2" VerticalAlignment="Center"/>
                     <Button x:Name="butSamplingCapture" Content="{x:Static p:Resources.TABSAMPLING_START}" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2"/>
                     <Button x:Name="butSaveConfig" Content="Export Settings" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2" Click="butSaveConfig_Click"/>
-                    <Button x:Name="butLoadConfig" Content="Load Settings" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2" Click="butLoadConfig_Click"/>
+                    <Button x:Name="butLoadConfig" Content="Load Settings" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2" Click="butLoadConfig_Click"/>
                     <Button x:Name="butCreateDefultHue" Content="Create Default.hue file" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,2" Click="butCreateDefultHue_Click" />
+                    <ListBox x:Name="lstConfigs" Margin="10,2" Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2"/>
 
                 </Grid>
             </TabItem>

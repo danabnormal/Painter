@@ -17,15 +17,47 @@ namespace Painter
     {
         private Detector _detector = new Detector();
         private IOConfig.InputConfig _currentioconfig = new IOConfig.InputConfig();
-        
+        private List<IOConfig.InputConfig> _plugins = new List<IOConfig.InputConfig>();
+
         public MainWindow()
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             InitializeComponent();
-            
             LoadDefaultSettings();
+            PopulatePluginList();
+            PopulatePluginControl();
         }
         
+        private void PopulatePluginList ()
+        {
+            string[] _pluginfiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins\\IO\\", "*.hue");
+
+            foreach (string _pluginfile in _pluginfiles)
+            {
+                Tools tools = new Tools();
+                _plugins.Add(tools.ImportConfig<IOConfig.InputConfig>(_pluginfile));
+            }
+        }
+
+        private void PopulatePluginControl()
+        {
+
+            List<PluginData> _data = new List<PluginData>();
+            
+            foreach (IOConfig.InputConfig _plugin in _plugins)
+            {
+                ListBoxItem _lstConfig = new ListBoxItem();
+                _lstConfig.Content = _plugin.Name;
+                lstConfigs.Items.Add(_lstConfig);
+            }
+        }
+
+        private class PluginData
+        {
+            public string PluginID { get; set; }
+            public string PluginName { get; set; }
+        }
+
         private void LoadDefaultSettings()
         {
             Tools tools = new Tools();
@@ -129,15 +161,26 @@ namespace Painter
         /// </summary>
         private void LoadConfig()
         {
-            IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = Properties.Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
-            if (dlg.ShowDialog() == true)
+            if (lstConfigs.SelectedIndex == -1)
             {
-                Tools tools = new Tools();
-                _currentioconfig = tools.ImportConfig<IOConfig.InputConfig>(dlg.FileName);
+                MessageBox.Show("No config selected.");
+            }
+            else
+            {
+                ListBoxItem _selected = (ListBoxItem)lstConfigs.SelectedItem;
+                _currentioconfig = _plugins.Find(i => i.Name == _selected.Content.ToString());
                 ReadSettingsToControls(_currentioconfig.Settings);
             }
+            
+            //IOConfig.InputConfig _cfg = new IOConfig.InputConfig();
+            //OpenFileDialog dlg = new OpenFileDialog();
+            //dlg.Filter = Properties.Resources.MAIN_FILETYPE_DESCRIPTION + "|*.hue";
+            //if (dlg.ShowDialog() == true)
+            //{
+            //    Tools tools = new Tools();
+            //    _currentioconfig = tools.ImportConfig<IOConfig.InputConfig>(dlg.FileName);
+            //    ReadSettingsToControls(_currentioconfig.Settings);
+            //}
         }
         
         /// <summary>
